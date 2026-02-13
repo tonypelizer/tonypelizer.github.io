@@ -68,7 +68,7 @@ a:hover {
   justify-content: center;
 
   /* pushes hero down a little so it feels like the screenshot */
-  padding-top: 80px;
+  /* padding-top: 80px; */
 }
 
 .hero h1 {
