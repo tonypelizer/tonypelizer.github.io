@@ -17,15 +17,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section id="work" class="work">
     <div class="work-content">
       <div class="work-text">
-        <h2 class="work-title">MicroTale</h2>
-        <p class="role">Independent Developer, 2026 - Now</p>
+        <h2 class="work-title">Ourvio</h2>
+        <p class="role">Independent Developer, 2025 - Now</p>
         <p class="work-desc">
-          A daily micro-writing app designed for repeat, short-form use.
+          A lightweight system for shared accountability in small groups.
         </p>
-        <a href="#" class="get-app-button">Get app</a>
+        <a href="https://ourvio.com" class="get-app-button">Go to site</a>
       </div>
       <div class="work-image">
-        <!-- Image placeholder -->
+        <img src="/src/assets/ourvio.com.png" alt="Ourvio" />
       </div>
     </div>
   </section>
@@ -33,10 +33,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <section id="work" class="work">
     <div class="work-content">
       <div class="work-text">
-        <h2 class="work-title">Ourvio</h2>
-        <p class="role">Independent Developer, 2025 - Now</p>
+        <h2 class="work-title">MicroTale</h2>
+        <p class="role">Independent Developer, 2026 - Now</p>
         <p class="work-desc">
-          A lightweight system for shared accountability in small groups.
+          A daily micro-writing app designed for repeat, short-form use.
         </p>
         <a href="#" class="get-app-button">Get app</a>
       </div>
@@ -101,8 +101,17 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
   .work-image {
     min-height: 400px;
-    background: rgba(0, 0, 0, 0.05);
     border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-image img {
+    max-width: 80%;
+    max-height: 400px;
+    object-fit: contain;
   }
 
   .work h2 {
