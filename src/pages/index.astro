@@ -1,16 +1,269 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Tony Pelizer — Software Engineer" description="Home">
+  <section class="hero">
+    <h1>I design and build software for everyday use.</h1>
+    <p>
+      Currently working at <a
+        href="https://dairyone.com"
+        target="_blank"
+        rel="noreferrer">Dairy One</a
+      >.
+    </p>
+  </section>
+
+  <section id="work" class="work">
+    <div class="work-content">
+      <div class="work-text">
+        <h2 class="work-title">MicroTale</h2>
+        <p class="role">Independent Developer, 2026 - Now</p>
+        <p class="work-desc">
+          A daily micro-writing app designed for repeat, short-form use.
+        </p>
+        <a href="#" class="get-app-button">Get app</a>
+      </div>
+      <div class="work-image">
+        <!-- Image placeholder -->
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="work">
+    <div class="work-content">
+      <div class="work-text">
+        <h2 class="work-title">Ourvio</h2>
+        <p class="role">Independent Developer, 2025 - Now</p>
+        <p class="work-desc">
+          A lightweight system for shared accountability in small groups.
+        </p>
+        <a href="#" class="get-app-button">Get app</a>
+      </div>
+      <div class="work-image">
+        <!-- Image placeholder -->
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<button id="scroll-button" class="scroll-button" aria-label="Scroll down">
+  <svg
+    class="scroll-icon"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+  >
+    <path d="M12 5v14m0 0l-7-7m7 7l7-7"></path>
+  </svg>
+</button>
+
+<style>
+  .hero {
+    animation: fadeInScale 0.8s ease-out;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .work {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0;
+  }
+
+  .work-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .work-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work-image {
+    min-height: 400px;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+
+  .work h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .work p {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .work .role {
+    font-size: smaller;
+    color: var(--muted);
+  }
+
+  .work .work-desc {
+    margin-top: 1rem;
+    max-width: 600px;
+    line-height: 1.6rem;
+    letter-spacing: 0.05rem;
+    font-weight: 300;
+  }
+
+  .get-app-button {
+    margin-top: 2rem;
+    padding: 12px 24px;
+    background: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .get-app-button:hover {
+    background: #333;
+    transform: translateY(-1px);
+  }
+
+  @media (max-width: 768px) {
+    .work-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .work-image {
+      min-height: 300px;
+    }
+  }
+
+  .scroll-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    animation:
+      fadeInScale 0.8s ease-out,
+      pulse 4s ease-in-out 0.8s infinite;
+  }
+
+  .scroll-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+    animation: none;
+  }
+
+  .scroll-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .scroll-button.scroll-up .scroll-icon {
+    transform: rotate(180deg);
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.75;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .scroll-button {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>
+
+<script>
+  const scrollButton = document.getElementById('scroll-button');
+
+  function updateScrollButton() {
+    if (!scrollButton) return;
+
+    const scrollY = window.scrollY;
+    const isAtTop = scrollY < 100;
+
+    if (isAtTop) {
+      scrollButton.classList.remove('scroll-up');
+      scrollButton.setAttribute('aria-label', 'Scroll down');
+    } else {
+      scrollButton.classList.add('scroll-up');
+      scrollButton.setAttribute('aria-label', 'Scroll up');
+    }
+  }
+
+  scrollButton?.addEventListener('click', () => {
+    const scrollY = window.scrollY;
+    const isAtTop = scrollY < 100;
+
+    if (isAtTop) {
+      // Scroll to work section
+      const workSection = document.querySelector('.work');
+      workSection?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  // Update on scroll
+  window.addEventListener('scroll', updateScrollButton);
+
+  // Initial update
+  updateScrollButton();
+
+  // Handle hash on page load
+  function handleHashScroll() {
+    const hash = window.location.hash;
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  // Handle on page load and hash change
+  handleHashScroll();
+  window.addEventListener('hashchange', handleHashScroll);
+</script>

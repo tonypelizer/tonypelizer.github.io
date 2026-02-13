@@ -1,0 +1,92 @@
+:root {
+  --max: 1100px;
+  --pad: 48px;
+  --text: #0b0b0b;
+  --muted: #b9b9b9;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: 'Open Sans', Arial, sans-serif;
+  color: var(--text);
+  background: #fff;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 28px var(--pad);
+  background: transparent;
+}
+
+.avatar img {
+  display: block;
+  border-radius: 999px;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+  font-size: 18px;
+  color: #9c9c9c;
+}
+
+.page {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* Hero matches your screenshot: big title + muted line, lots of whitespace */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* pushes hero down a little so it feels like the screenshot */
+  padding-top: 80px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(48px, 5vw, 86px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+
+.hero p {
+  margin: 18px 0 0;
+  font-size: 18px;
+  color: var(--muted);
+}
+
+.hero p a {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

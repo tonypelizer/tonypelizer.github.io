@@ -1,0 +1,109 @@
+---
+const { title = 'Tony Pelizer', description = '' } = Astro.props;
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/png" href="/tp.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <header class="topbar">
+      <a class="avatar" href="/" aria-label="Home">
+        <img src="/tp.png" alt="Avatar" width="40" height="40" />
+      </a>
+
+      <nav class="nav">
+        <a href="/#work">Work</a>
+        <a href="/about">About</a>
+        <!-- <a href="/blog">Blog</a>
+        <a href="/knowledge">Knowledge</a> -->
+      </nav>
+    </header>
+
+    <main class="page">
+      <slot />
+    </main>
+
+    <style>
+      .topbar {
+        animation: slideInFromTop 0.6s ease-out;
+      }
+
+      .topbar.exit {
+        animation: slideOutToTop 0.5s ease-in forwards;
+      }
+
+      @keyframes slideInFromTop {
+        from {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideOutToTop {
+        from {
+          transform: translateY(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(-100%);
+          opacity: 0;
+        }
+      }
+    </style>
+
+    <script>
+      // Intercept navigation to play exit animation
+      document.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const link = target.closest('a');
+
+        // Only handle internal navigation links
+        if (
+          link &&
+          link.href &&
+          !link.target &&
+          link.hostname === window.location.hostname
+        ) {
+          const href = link.getAttribute('href');
+          const linkPath = link.pathname;
+          const currentPath = window.location.pathname;
+
+          // Skip if it's the current page or just an anchor/hash
+          if (href && linkPath !== currentPath && !href.startsWith('#')) {
+            e.preventDefault();
+
+            const topbar = document.querySelector('.topbar');
+            topbar?.classList.add('exit');
+
+            // Navigate after animation completes
+            setTimeout(() => {
+              window.location.href = link.href;
+            }, 500);
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
