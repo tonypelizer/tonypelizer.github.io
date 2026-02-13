@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ourvioImage from '../assets/ourvio.com.png';
 ---
 
 <BaseLayout title="Tony Pelizer — Software Engineer" description="Home">
@@ -25,7 +26,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         <a href="https://ourvio.com" class="get-app-button">Go to site</a>
       </div>
       <div class="work-image">
-        <img src="/src/assets/ourvio.com.png" alt="Ourvio" />
+        <img src={ourvioImage.src} alt="Ourvio" />
       </div>
     </div>
   </section>
