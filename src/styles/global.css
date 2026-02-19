@@ -14,7 +14,12 @@ body {
 }
 body {
   margin: 0;
-  font-family: 'Open Sans', Arial, sans-serif;
+  font-family:
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    Arial,
+    sans-serif;
   color: var(--text);
   background: #fff;
 }
@@ -26,6 +31,28 @@ a {
 a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
+}
+
+/* Global focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+/* Skip-to-content link (visible only on focus) */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  padding: 8px 16px;
+  background: var(--text);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 9999;
+}
+.skip-link:focus {
+  top: 16px;
 }
 
 .topbar {
@@ -40,6 +67,7 @@ a:hover {
 
   padding: 28px var(--pad);
   background: transparent;
+  z-index: 100;
 }
 
 .avatar img {
@@ -60,15 +88,12 @@ a:hover {
   padding: 0 var(--pad);
 }
 
-/* Hero matches your screenshot: big title + muted line, lots of whitespace */
+/* Hero */
 .hero {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  /* pushes hero down a little so it feels like the screenshot */
-  /* padding-top: 80px; */
 }
 
 .hero h1 {

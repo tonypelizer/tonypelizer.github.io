@@ -1,0 +1,156 @@
+---
+import type { Project } from '../data/projects';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+
+/* Dynamically import the image only when one is specified.
+   Astro's import.meta.glob gives us optimized ImageMetadata at build time. */
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/*.{png,jpg,jpeg,webp,svg}',
+);
+
+let imageSrc: string | undefined;
+if (project.image) {
+  const key = `../assets/${project.image}`;
+  if (images[key]) {
+    const mod = await images[key]();
+    imageSrc = mod.default.src;
+  }
+}
+---
+
+<section id={project.slug} class="work">
+  <div class="work-content">
+    <div class="work-text">
+      <h2 class="work-title">{project.title}</h2>
+      <p class="role">{project.role}, {project.period}</p>
+      <p class="work-desc">{project.description}</p>
+      <a
+        href={project.url}
+        class="get-app-button"
+        {...project.url.startsWith('http')
+          ? { target: '_blank', rel: 'noopener noreferrer' }
+          : {}}
+      >
+        {project.urlLabel}
+      </a>
+    </div>
+    <div class="work-image">
+      {
+        imageSrc && (
+          <img
+            src={imageSrc}
+            alt={project.imageAlt ?? project.title}
+            loading="lazy"
+          />
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 0;
+  }
+
+  .work-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .work-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .work-image {
+    min-height: 600px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-image img {
+    max-width: 100%;
+    max-height: 520px;
+    object-fit: contain;
+  }
+
+  .work h2 {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 800;
+    margin: 0;
+  }
+
+  .work p {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .work .role {
+    font-size: smaller;
+    color: var(--muted);
+  }
+
+  .work .work-desc {
+    margin-top: 1rem;
+    max-width: 600px;
+    line-height: 1.6;
+    letter-spacing: 0.05rem;
+    font-weight: 300;
+  }
+
+  .get-app-button {
+    margin-top: 2rem;
+    padding: 12px 24px;
+    background: var(--text);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .get-app-button:hover {
+    background: #333;
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  .get-app-button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
+  @media (max-width: 768px) {
+    .work-content {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .work-image {
+      min-height: 220px;
+    }
+
+    .work-image img {
+      max-height: 260px;
+      max-width: 90%;
+    }
+  }
+</style>

@@ -14,30 +14,28 @@ import '../styles/global.css';
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
       rel="stylesheet"
     />
   </head>
 
   <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+
     <header class="topbar">
       <a class="avatar" href="/" aria-label="Home">
         <img src="/tp.png" alt="Avatar" width="40" height="40" />
       </a>
 
       <nav class="nav">
-        <a href="/#work">Work</a>
+        <a href="/#earlyledge">Work</a>
         <a href="/about">About</a>
         <!-- <a href="/blog">Blog</a>
         <a href="/knowledge">Knowledge</a> -->
       </nav>
     </header>
 
-    <main class="page">
+    <main id="main-content" class="page">
       <slot />
     </main>
 

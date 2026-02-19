@@ -1,0 +1,139 @@
+---
+/**
+ * A fixed scroll-to-top / scroll-to-work button shown on the home page.
+ * Pure HTML + scoped <script> — no framework JS required.
+ */
+---
+
+<button id="scroll-button" class="scroll-button" aria-label="Scroll down">
+  <svg
+    class="scroll-icon"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <path d="M12 5v14m0 0l-7-7m7 7l7-7"></path>
+  </svg>
+</button>
+
+<style>
+  .scroll-button {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    animation:
+      fadeIn 0.8s ease-out,
+      pulse 4s ease-in-out 0.8s infinite;
+  }
+
+  .scroll-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+    animation: none;
+  }
+
+  .scroll-button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
+  .scroll-icon {
+    transition: transform 0.3s ease;
+  }
+
+  .scroll-button.scroll-up .scroll-icon {
+    transform: rotate(180deg);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.75;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .scroll-button {
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 44px;
+      height: 44px;
+    }
+  }
+</style>
+
+<script>
+  const scrollButton = document.getElementById('scroll-button');
+
+  function updateScrollButton() {
+    if (!scrollButton) return;
+
+    const isAtTop = window.scrollY < 100;
+
+    if (isAtTop) {
+      scrollButton.classList.remove('scroll-up');
+      scrollButton.setAttribute('aria-label', 'Scroll down');
+    } else {
+      scrollButton.classList.add('scroll-up');
+      scrollButton.setAttribute('aria-label', 'Scroll to top');
+    }
+  }
+
+  scrollButton?.addEventListener('click', () => {
+    const isAtTop = window.scrollY < 100;
+
+    if (isAtTop) {
+      const workSection = document.querySelector('.work');
+      workSection?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+
+  window.addEventListener('scroll', updateScrollButton, { passive: true });
+  updateScrollButton();
+
+  function handleHashScroll() {
+    const hash = window.location.hash;
+    if (hash) {
+      const target = document.querySelector(hash);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }
+
+  handleHashScroll();
+  window.addEventListener('hashchange', handleHashScroll);
+</script>

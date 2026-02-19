@@ -2,7 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 ---
 
-<BaseLayout title="About — Tony Pelizer" description="About">
+<BaseLayout
+  title="About — Tony Pelizer"
+  description="About Tony Pelizer — software engineer at Dairy One, building reliable tools for everyday use from Vermont."
+>
   <section class="about-section">
     <div class="about-content">
       <h2>Hi there!</h2>
@@ -16,9 +19,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         currently work remotely from a small town in Vermont.
       </p>
 
-      <br />
-
-      <h6>ABOUT</h6>
+      <h3 class="section-heading">About</h3>
 
       <p>
         I’ve been building things on the web since childhood, starting with
@@ -39,8 +40,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
         I enjoy spending time outdoors, playing music, reading science fiction,
         rock climbing, woodworking, and occasional target practice.
       </p>
-      <br />
-      <h6>SAY HELLO</h6>
+
+      <h3 class="section-heading">Say Hello</h3>
 
       <p>
         If you want to connect, or just say hi: <a
@@ -55,15 +56,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <style>
-    * {
-      font-family:
-        'Inter',
-        -apple-system,
-        BlinkMacSystemFont,
-        Arial,
-        sans-serif !important;
-    }
-
     .about-section {
       min-height: 100vh;
       display: grid;
@@ -77,28 +69,33 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     .about-section h2 {
       grid-column: 1 / -1;
       margin: 0;
+      font-family: 'Inter', sans-serif;
       font-size: clamp(30px, 8vw, 50px);
       font-weight: 800;
       letter-spacing: -0.02em;
       line-height: 1.02;
     }
 
-    .about-section h6 {
+    .section-heading {
       font-size: 0.75rem;
+      font-weight: 600;
       line-height: 1.11rem;
-      letter-spacing: 0.1111111111111111rem;
+      letter-spacing: 0.11rem;
+      text-transform: uppercase;
+      margin-top: 2rem;
+      margin-bottom: 0;
     }
 
     .about-content {
       font-size: 18px;
-      line-height: 1.6rem;
+      line-height: 1.6;
       letter-spacing: 0.05rem;
       font-weight: 300;
       margin-bottom: 200px;
     }
 
     .about-content p a {
-      border-bottom: 1px solid #000000;
+      border-bottom: 1px solid var(--text);
     }
 
     @keyframes fadeInScale {
