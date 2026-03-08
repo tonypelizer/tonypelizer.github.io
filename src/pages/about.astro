@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import tonypelizerPhoto from '../assets/tonypelizer.png';
 ---
 
 <BaseLayout
@@ -51,7 +53,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
 
     <div class="about-photo">
-      <!-- Photo will go here -->
+      <Image src={tonypelizerPhoto} alt="Tony Pelizer" />
     </div>
   </section>
 
@@ -98,6 +100,23 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       border-bottom: 1px solid var(--text);
     }
 
+    .about-photo {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      align-self: start;
+      position: sticky;
+      top: 140px;
+    }
+
+    .about-photo img {
+      width: 100%;
+      max-width: 420px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
     @keyframes fadeInScale {
       from {
         opacity: 0;
@@ -113,6 +132,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       .about-section {
         grid-template-columns: 1fr;
         gap: 2rem;
+      }
+
+      .about-photo img {
+        max-width: 320px;
       }
     }
   </style>
