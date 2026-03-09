@@ -18,7 +18,7 @@ const projects: Project[] = [
     role: 'Independent Developer',
     period: '2025 – Now',
     description:
-      'A lightweight system for shared accountability in small groups.',
+      'A lightweight platform for shared accountability and task management within groups.',
     url: 'https://ourvio.com',
     urlLabel: 'Go to site',
     image: 'ourvio-2.png',
