@@ -13,6 +13,19 @@ export interface Project {
 
 const projects: Project[] = [
   {
+    slug: 'ourvio',
+    title: 'Ourvio',
+    role: 'Independent Developer',
+    period: '2025 – Now',
+    description:
+      'A lightweight system for shared accountability in small groups.',
+    url: 'https://ourvio.com',
+    urlLabel: 'Go to site',
+    image: 'ourvio-2.png',
+    imageAlt:
+      'Screenshot of the Ourvio application showing group accountability dashboard',
+  },
+  {
     slug: 'earlyledge',
     title: 'EarlyLedge',
     role: 'Independent Developer',
@@ -23,19 +36,6 @@ const projects: Project[] = [
     image: 'earlyledge.png',
     imageAlt:
       'Screenshot of the EarlyLedge application showing early-learning tracking tools',
-  },
-  {
-    slug: 'ourvio',
-    title: 'Ourvio',
-    role: 'Independent Developer',
-    period: '2025 – Now',
-    description:
-      'A lightweight system for shared accountability in small groups.',
-    url: 'https://ourvio.com',
-    urlLabel: 'Go to site',
-    image: 'ourvio.png',
-    imageAlt:
-      'Screenshot of the Ourvio application showing group accountability dashboard',
   },
   {
     slug: 'microtale',
