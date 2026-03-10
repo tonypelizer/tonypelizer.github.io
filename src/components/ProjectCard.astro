@@ -183,18 +183,23 @@ if (project.image) {
   }
 
   @media (max-width: 768px) {
+    .work {
+      min-height: 100vh;
+      padding: 0;
+      justify-content: center;
+    }
+
     .work-content {
       grid-template-columns: 1fr;
-      gap: 2rem;
+    }
+
+    .work-text {
+      align-items: center;
+      text-align: center;
     }
 
     .work-image {
-      min-height: 220px;
-    }
-
-    .work-image img {
-      max-height: 260px;
-      max-width: 90%;
+      display: none;
     }
   }
 </style>

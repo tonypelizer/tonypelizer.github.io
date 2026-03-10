@@ -239,7 +239,13 @@
   }
 
   nextButton?.addEventListener('click', () => {
-    getNextSection()?.scrollIntoView({ behavior: 'smooth' });
+    const next = getNextSection();
+    if (next) {
+      window.scrollTo({
+        top: next.getBoundingClientRect().top + window.scrollY,
+        behavior: 'smooth',
+      });
+    }
   });
 
   topButton?.addEventListener('click', () => {
