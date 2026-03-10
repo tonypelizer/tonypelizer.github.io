@@ -1,0 +1,717 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Ourvio — Case Study | Tony Pelizer"
+  description="How I designed and built Ourvio: a lightweight platform for shared accountability and task management within groups."
+>
+  <article class="case-study">
+    <!-- ─── Hero ──────────────────────────────────────────────────── -->
+    <header class="cs-hero">
+      <p class="cs-overline">Case Study</p>
+      <h1 class="cs-title">Ourvio</h1>
+      <p class="cs-subtitle">
+        A lightweight platform for shared accountability — built for groups, not
+        solo grinders.
+      </p>
+
+      <div class="cs-meta-grid">
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Role</span>
+          <span class="cs-meta-value">Independent Developer</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Timeline</span>
+          <span class="cs-meta-value">2025 – Present</span>
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Stack</span>
+          <span class="cs-meta-value"
+            >React · TypeScript · Django · PostgreSQL</span
+          >
+        </div>
+        <div class="cs-meta-item">
+          <span class="cs-meta-label">Live site</span>
+          <a
+            class="cs-meta-value cs-meta-link"
+            href="https://ourvio.com"
+            target="_blank"
+            rel="noopener noreferrer">ourvio.com ↗</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- ─── Body ──────────────────────────────────────────────────── -->
+    <div class="cs-body">
+      <!-- Opening Hook -->
+      <section class="cs-section cs-intro">
+        <p>
+          Most task apps assume you're working alone. But many real
+          responsibilities are shared — families coordinating chores, roommates
+          dividing errands, small teams keeping track of who owns what.
+        </p>
+        <p>
+          Ourvio is a lightweight system designed specifically for groups that
+          want shared accountability without the overhead of enterprise project
+          management tools. I built it end-to-end, from product concept to
+          deployment.
+        </p>
+      </section>
+
+      <!-- The Problem -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">The Problem</h2>
+        <p>
+          Most task apps are optimized for one person. That's not a criticism —
+          it's a deliberate design choice. Personal productivity is a huge
+          space, and tools like Things, Todoist, and Notion do it well. But a
+          significant slice of real-world responsibilities doesn't look like a
+          solo to-do list.
+        </p>
+        <p>
+          Think about the actual texture of shared life: families splitting
+          household tasks, roommates managing shared errands, a three-person
+          startup trying to stay in sync without standing up a new Jira
+          instance, a friend group planning a trip. For all of these, the same
+          frustrating choice exists: use a personal task app with no real
+          concept of a group, or spin up a full project management suite that
+          feels like overkill the moment you invite someone.
+        </p>
+        <p>
+          The gap between "my private to-do list" and "enterprise project
+          management" is real — and surprisingly underserved. There's a whole
+          category of lightweight, shared accountability that neither end of the
+          market handles well.
+        </p>
+        <p>That's the problem Ourvio is trying to solve.</p>
+      </section>
+
+      <!-- The Idea -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">The Idea</h2>
+        <p>
+          The core insight was simple: what if tasks were group-first by
+          default? Not personal tasks you can optionally share, but tasks that
+          live in a group context from the start.
+        </p>
+        <p>
+          In Ourvio, every task belongs to a group. Everyone in the group has
+          visibility into what's open, what's in progress, and what's done.
+          Completion is visible — not just to you, but to the people who care.
+          Accountability isn't a feature you configure later; it's the default
+          behavior.
+        </p>
+        <p>
+          A lightweight system for shared accountability, built for the way
+          people actually collaborate in small, real-world contexts. Not a solo
+          productivity tool. Not a heavy PM suite. Something in between.
+        </p>
+      </section>
+
+      <!-- What Ourvio Does -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">What Ourvio Does</h2>
+        <p>
+          At its core, Ourvio organizes work around groups rather than
+          individuals. Each group shares a simple workspace where members can:
+        </p>
+        <ul>
+          <li>Create and assign tasks to group members</li>
+          <li>Track progress and mark tasks complete</li>
+          <li>Comment and collaborate on individual tasks</li>
+          <li>Attach files and supporting context</li>
+          <li>Export task data when needed</li>
+        </ul>
+        <p>
+          The goal is to make shared responsibility visible — without
+          introducing the complexity of full project management systems.
+        </p>
+      </section>
+
+      <!-- Product Design -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Product Design</h2>
+        <p>The biggest product design challenge was restraint.</p>
+        <p>
+          It's tempting, when building a task management product, to keep adding
+          capability. Labels, priorities, swimlanes, automations, integrations.
+          Every feature has a use case. But I kept coming back to the core
+          question: <em>who is this actually for?</em>
+        </p>
+        <p>
+          The target user is someone who needs shared visibility on a modest set
+          of tasks — not someone managing a 50-person engineering sprint. Adding
+          complexity to serve the second audience would actively hurt the first.
+          So I made explicit decisions to stay lightweight:
+        </p>
+        <ul>
+          <li>
+            <strong>Tasks live in groups.</strong> The group is the primary organizing
+            unit, not the project or the board.
+          </li>
+          <li>
+            <strong>Shared visibility is the default.</strong> There are no private
+            tasks. If you're in the group, you see the full picture.
+          </li>
+          <li>
+            <strong>Simple interaction model.</strong> Create a task, assign it, complete
+            it. That's most of what people actually need.
+          </li>
+          <li>
+            <strong>No roadmaps, sprints, or velocity charts.</strong>
+            Ourvio is not Jira-lite. It's intentionally narrower — which makes it
+            faster and less intimidating to actually use.
+          </li>
+        </ul>
+        <p>
+          Getting the task creation flow to feel immediate — no friction, no
+          modals stacked on modals — turned out to be more nuanced than I
+          expected. The goal was that adding a task should feel as quick as
+          sending a text message.
+        </p>
+      </section>
+
+      <!-- Building the MVP -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Building the MVP</h2>
+        <p>
+          I started with the smallest version of the core loop: create a group,
+          invite a member, create a task, complete it. Everything else was out
+          of scope until that loop felt good.
+        </p>
+        <p>
+          From there I expanded incrementally: task assignment, status tracking,
+          member permissions, profile and auth. I kept a running list of "nice
+          to haves" that I intentionally deferred. Getting the loop right
+          mattered more than covering every edge case on day one.
+        </p>
+        <p>
+          One area that took more time than expected: file attachments. Adding
+          files to tasks sounds simple, but it touches a lot of surfaces —
+          storage, validation, size limits, MIME type checks, access control,
+          preview rendering. I used Supabase Storage with server-side validation
+          to keep attachments secure and size-constrained, making sure files
+          were only accessible to members of the relevant group.
+        </p>
+      </section>
+
+      <!-- Technical Architecture -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Technical Architecture</h2>
+        <p>The stack prioritizes reliability and maintainability.</p>
+        <div class="cs-stack-list">
+          <div class="cs-stack-row">
+            <span class="cs-stack-label">Frontend</span>
+            <span class="cs-stack-detail"
+              >React + TypeScript for a type-safe UI and scalable component
+              architecture.</span
+            >
+          </div>
+          <div class="cs-stack-row">
+            <span class="cs-stack-label">Backend</span>
+            <span class="cs-stack-detail"
+              >Django + Django REST Framework powering the API, authentication,
+              and permission model.</span
+            >
+          </div>
+          <div class="cs-stack-row">
+            <span class="cs-stack-label">Database &amp; Storage</span>
+            <span class="cs-stack-detail"
+              >PostgreSQL via Supabase with Supabase Storage for attachments.
+              Access control lives in the Django layer — not raw Supabase RLS —
+              keeping authorization consolidated and testable.</span
+            >
+          </div>
+          <div class="cs-stack-row">
+            <span class="cs-stack-label">Infrastructure</span>
+            <span class="cs-stack-detail"
+              >Fly.io Docker deployment with automated builds and predictable
+              scaling, avoiding unnecessary operational complexity.</span
+            >
+          </div>
+        </div>
+        <p>
+          A key architectural principle: authorization lives entirely in the API
+          layer, not the frontend, ensuring consistent and auditable access
+          control.
+        </p>
+      </section>
+
+      <!-- Key Engineering Challenges -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Key Engineering Challenges</h2>
+        <div class="cs-challenges">
+          <div class="cs-challenge-card">
+            <h3>Group membership access control</h3>
+            <p>
+              Every request that touches a task, group, or member goes through a
+              permission check that validates group membership. I wrote a
+              reusable view mixin so this check couldn't be accidentally omitted
+              on new endpoints.
+            </p>
+          </div>
+          <div class="cs-challenge-card">
+            <h3>Secure task visibility</h3>
+            <p>
+              Tasks are scoped to groups at the query level — not just filtered
+              post-fetch. If you're not in the group, the task doesn't exist
+              from your perspective. Horizontal privilege escalation is
+              prevented by design, not convention.
+            </p>
+          </div>
+          <div class="cs-challenge-card">
+            <h3>Optimistic UI updates</h3>
+            <p>
+              Task state changes — completing, reassigning — update the UI
+              immediately without waiting for the server response. If the API
+              call fails, the state rolls back. This makes the app feel fast
+              even across real-world latency.
+            </p>
+          </div>
+          <div class="cs-challenge-card">
+            <h3>Pagination and list scaling</h3>
+            <p>
+              Task lists use cursor-based pagination to keep performance
+              consistent as groups grow. The frontend handles loading additional
+              pages without blowing away the existing loaded state.
+            </p>
+          </div>
+          <div class="cs-challenge-card">
+            <h3>CSV export</h3>
+            <p>
+              Group admins can export task data as a CSV. The export is
+              generated server-side from a filtered queryset — no intermediary
+              file is written to disk. Fast, stateless, and straightforward to
+              audit.
+            </p>
+          </div>
+          <div class="cs-challenge-card">
+            <h3>Rate limiting and security hardening</h3>
+            <p>
+              Auth endpoints are rate-limited at the API layer. Password reset
+              and account creation flows have explicit throttles to reduce abuse
+              risk. Security headers — HSTS, X-Frame-Options, CSRF protection —
+              are enforced in production.
+            </p>
+          </div>
+          <div class="cs-challenge-card">
+            <h3>File upload validation</h3>
+            <p>
+              Uploads are validated on both client and server: size limits,
+              allowed MIME types, and extension checks. Files are stored under a
+              path scoped to the group, with no public URLs — downloads go
+              through an authenticated endpoint.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tradeoffs and Decisions -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Tradeoffs &amp; Decisions</h2>
+        <p>Not everything made the cut, and that was intentional.</p>
+        <p>
+          I deliberately deferred multi-assignee tasks. The UX complexity of
+          multiple assignees — how do you display them, who is "responsible,"
+          how do notifications work — wasn't worth solving before the core loop
+          was validated. One assignee keeps the accountability model clean.
+        </p>
+        <p>
+          I also skipped real-time updates in v1. For most use cases, page-load
+          or a manual refresh is perfectly fine. WebSockets add operational
+          complexity and are expensive to implement correctly. I'd revisit once
+          there's clear evidence that latency is a real blocker for actual
+          users.
+        </p>
+        <p>
+          Billing and paid plans are designed for but not yet shipped. The role
+          and permission infrastructure supports paid tiers — I just haven't
+          opened that flow. Launching free first was the right call for building
+          early traction without friction.
+        </p>
+        <p>
+          Every deferred decision was a tradeoff I tracked explicitly, not
+          something I forgot. The goal was always to ship something usable fast,
+          learn from real use, and expand thoughtfully.
+        </p>
+      </section>
+
+      <!-- Outcome / Reflection -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Outcome &amp; Reflection</h2>
+        <p>
+          Ourvio is live and in use. More importantly, it's a product I
+          genuinely use myself.
+        </p>
+        <p>
+          Building it end-to-end — from data model to React component to
+          deployed container — gave me clarity about where the hard parts of
+          full-stack product development actually live. It's not the technology.
+          It's the accumulation of small decisions: what to show when a list is
+          empty, how to handle a failed upload gracefully, whether a permission
+          check should live in a view or a model method.
+        </p>
+        <p>
+          Getting those details right requires caring about the product, not
+          just the code. Ourvio showed me I can hold both. I care whether the
+          task creation flow feels fast <em>and</em> whether the CSV export handles
+          encoding edge cases.
+        </p>
+        <p>
+          The project also reinforced something I think matters in engineering:
+          willingness to constrain scope in service of quality. A smaller,
+          polished, well-secured product beats a sprawling one that half-works.
+        </p>
+      </section>
+
+      <!-- Future Direction -->
+      <section class="cs-section">
+        <h2 class="cs-section-heading">Where It Goes Next</h2>
+        <p>The roadmap is clear, even if the timing is deliberate:</p>
+        <ul>
+          <li>
+            <strong>Multi-assignee tasks</strong> — the most-requested feature, and
+            with the core model stable it's the right next step
+          </li>
+          <li>
+            <strong>Richer notifications</strong> — email digests, completion alerts,
+            @mentions in task comments
+          </li>
+          <li>
+            <strong>Billing and paid plans</strong> — the infrastructure is ready;
+            it needs a payment flow
+          </li>
+          <li>
+            <strong>Deeper admin controls</strong> — group-level visibility settings,
+            member role customization, audit logs
+          </li>
+          <li>
+            <strong>A native mobile experience</strong> — the current app is responsive,
+            but a purpose-built mobile interface would unlock a new category of use
+            cases
+          </li>
+        </ul>
+        <p>
+          Ourvio isn't done. But it's real, it works, and it solves a genuine
+          problem. That's the foundation worth building on.
+        </p>
+      </section>
+
+      <!-- CTA -->
+      <div class="cs-cta">
+        <a
+          href="https://ourvio.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="cs-cta-button"
+        >
+          Visit Ourvio ↗
+        </a>
+        <a href="/" class="cs-back-link">← Back to work</a>
+      </div>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  /* ─── Layout ──────────────────────────────────────────────────── */
+  .case-study {
+    padding-top: 140px;
+    padding-bottom: 120px;
+    animation: fadeInScale 0.8s ease-out;
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* ─── Hero ────────────────────────────────────────────────────── */
+  .cs-hero {
+    max-width: 760px;
+    margin-bottom: 72px;
+  }
+
+  .cs-overline {
+    margin: 0 0 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cs-title {
+    margin: 0 0 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(48px, 7vw, 80px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+
+  .cs-subtitle {
+    margin: 0 0 40px;
+    font-size: clamp(18px, 2.2vw, 22px);
+    font-weight: 300;
+    color: #4a4a4a;
+    line-height: 1.5;
+    letter-spacing: 0.02rem;
+  }
+
+  /* ─── Meta grid ───────────────────────────────────────────────── */
+  .cs-meta-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px 40px;
+    padding: 28px 32px;
+    background: #f7f7f7;
+    border-radius: 10px;
+  }
+
+  .cs-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .cs-meta-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1rem;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cs-meta-value {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .cs-meta-link {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .cs-meta-link:hover {
+    color: #444;
+  }
+
+  /* ─── Body ────────────────────────────────────────────────────── */
+  .cs-body {
+    max-width: 700px;
+  }
+
+  /* ─── Sections ────────────────────────────────────────────────── */
+  .cs-intro {
+    margin-bottom: 56px;
+  }
+
+  .cs-intro p {
+    font-size: clamp(17px, 2vw, 19px);
+    font-weight: 300;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  .cs-section {
+    margin-bottom: 64px;
+  }
+
+  .cs-section-heading {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12rem;
+    text-transform: uppercase;
+    margin: 0 0 20px;
+    color: var(--text);
+  }
+
+  .cs-section p {
+    margin: 0 0 16px;
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: 0.03rem;
+    font-weight: 300;
+    color: var(--text);
+  }
+
+  .cs-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .cs-section ul {
+    margin: 0 0 16px;
+    padding-left: 20px;
+    list-style: disc;
+  }
+
+  .cs-section li {
+    font-size: 18px;
+    line-height: 1.7;
+    letter-spacing: 0.03rem;
+    font-weight: 300;
+    color: var(--text);
+    margin-bottom: 10px;
+    padding-left: 4px;
+  }
+
+  .cs-section li:last-child {
+    margin-bottom: 0;
+  }
+
+  .cs-section em {
+    font-style: italic;
+  }
+
+  /* ─── Stack list ──────────────────────────────────────────────── */
+  .cs-stack-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+    border: 1px solid #e8e8e8;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .cs-stack-row {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 16px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #e8e8e8;
+  }
+
+  .cs-stack-row:last-child {
+    border-bottom: none;
+  }
+
+  .cs-stack-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    padding-top: 2px;
+  }
+
+  .cs-stack-detail {
+    font-size: 15px;
+    font-weight: 300;
+    color: #444;
+    line-height: 1.65;
+  }
+
+  /* ─── Challenge cards ─────────────────────────────────────────── */
+  .cs-challenges {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 8px;
+  }
+
+  .cs-challenge-card {
+    padding: 22px 24px;
+    border-left: 2px solid #e8e8e8;
+    transition: border-color 0.2s ease;
+  }
+
+  .cs-challenge-card:hover {
+    border-left-color: var(--text);
+  }
+
+  .cs-challenge-card h3 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .cs-challenge-card p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 1.65;
+    color: #444;
+  }
+
+  /* ─── CTA ─────────────────────────────────────────────────────── */
+  .cs-cta {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid #e8e8e8;
+    flex-wrap: wrap;
+  }
+
+  .cs-cta-button {
+    padding: 14px 28px;
+    background: var(--text);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .cs-cta-button:hover {
+    background: #333;
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  .cs-cta-button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
+  .cs-back-link {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .cs-back-link:hover {
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  /* ─── Responsive ──────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .case-study {
+      padding-top: 100px;
+    }
+
+    .cs-hero {
+      margin-bottom: 48px;
+    }
+
+    .cs-meta-grid {
+      padding: 20px 20px;
+      gap: 16px 28px;
+    }
+
+    .cs-stack-row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+
+    .cs-section p,
+    .cs-section li {
+      font-size: 17px;
+    }
+  }
+</style>

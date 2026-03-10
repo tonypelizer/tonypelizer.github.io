@@ -9,6 +9,8 @@ export interface Project {
   /** Path is relative to src/assets/. Leave empty if no image yet. */
   image?: string;
   imageAlt?: string;
+  /** Internal route to a dedicated case study page, e.g. '/work/ourvio' */
+  caseStudyUrl?: string;
 }
 
 const projects: Project[] = [
@@ -21,6 +23,7 @@ const projects: Project[] = [
       'A lightweight platform for shared accountability and task management within groups.',
     url: 'https://ourvio.com',
     urlLabel: 'Go to site',
+    caseStudyUrl: '/work/ourvio',
     image: 'ourvio-3.png',
     imageAlt:
       'Screenshot of the Ourvio application showing group accountability dashboard',

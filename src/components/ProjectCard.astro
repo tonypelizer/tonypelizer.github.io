@@ -30,15 +30,24 @@ if (project.image) {
       <h2 class="work-title">{project.title}</h2>
       <p class="role">{project.role}, {project.period}</p>
       <p class="work-desc">{project.description}</p>
-      <a
-        href={project.url}
-        class="get-app-button"
-        {...project.url.startsWith('http')
-          ? { target: '_blank', rel: 'noopener noreferrer' }
-          : {}}
-      >
-        {project.urlLabel}
-      </a>
+      <div class="button-group">
+        <a
+          href={project.url}
+          class="get-app-button"
+          {...project.url.startsWith('http')
+            ? { target: '_blank', rel: 'noopener noreferrer' }
+            : {}}
+        >
+          {project.urlLabel}
+        </a>
+        {
+          project.caseStudyUrl && (
+            <a href={project.caseStudyUrl} class="case-study-button">
+              Case Study →
+            </a>
+          )
+        }
+      </div>
     </div>
     <div class="work-image">
       {
@@ -134,6 +143,41 @@ if (project.image) {
   }
 
   .get-app-button:focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 2px;
+  }
+
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    margin-top: 2rem;
+  }
+
+  .button-group .get-app-button {
+    margin-top: 0;
+  }
+
+  .case-study-button {
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--text);
+    text-decoration: none;
+    border-radius: 6px;
+    border: 1.5px solid var(--text);
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .case-study-button:hover {
+    background: var(--text);
+    color: #fff;
+    transform: translateY(-1px);
+    text-decoration: none;
+  }
+
+  .case-study-button:focus-visible {
     outline: 2px solid var(--text);
     outline-offset: 2px;
   }
