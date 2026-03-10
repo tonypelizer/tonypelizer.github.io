@@ -2,63 +2,159 @@
 
 ---
 
-<button id="scroll-button" class="scroll-button" aria-label="Scroll down">
+<!--
+  Next-item navigator: fixed bottom-center.
+  Always shows a down arrow. Cycles through .work sections.
+  Fades out once the user has scrolled past the last work item.
+-->
+<div id="next-wrapper" class="next-wrapper" role="presentation">
+  <button id="next-button" class="next-button" aria-label="View Work">
+    <svg
+      class="scroll-icon"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      aria-hidden="true"
+    >
+      <path d="M12 5v14m0 0l-7-7m7 7l7-7"></path>
+    </svg>
+  </button>
+  <span id="view-work-label" class="next-label" aria-hidden="true"
+    >View Work</span
+  >
+</div>
+
+<!--
+  Back-to-top: fixed bottom-right.
+  Fades in after the user scrolls past the hero section.
+-->
+<button id="top-button" class="top-button" aria-label="Back to top">
   <svg
-    class="scroll-icon"
-    width="24"
-    height="24"
+    width="22"
+    height="22"
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
+    stroke-width="2.5"
     stroke-linecap="round"
+    stroke-linejoin="round"
     aria-hidden="true"
   >
-    <path d="M12 5v14m0 0l-7-7m7 7l7-7"></path>
+    <path d="M18 15l-6-6-6 6"></path>
   </svg>
 </button>
 
 <style>
-  .scroll-button {
+  /* ── Next-item wrapper (bottom-center) ────────────────────── */
+  .next-wrapper {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    z-index: 1000;
+    /* Initial fade-in on page load */
+    animation: fadeIn 0.8s ease-out;
+    transition: opacity 0.5s ease;
+  }
+
+  .next-wrapper.hidden {
+    opacity: 0;
+    pointer-events: none;
+    /* Remove ongoing pulse so the CSS transition above takes effect */
+    animation: none;
+  }
+
+  .next-button {
+    background: transparent;
+    border: none;
+    color: var(--text, white);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+  }
+
+  .next-button:focus-visible {
+    outline: 2px solid var(--text, white);
+    outline-offset: 4px;
+  }
+
+  /* Pulse lives on the icon so hiding the wrapper doesn't conflict */
+  .scroll-icon {
+    animation: pulse 4s ease-in-out 0.8s infinite;
+    transition: opacity 0.2s ease;
+  }
+
+  .next-button:hover .scroll-icon {
+    animation: none;
+    opacity: 0.6;
+  }
+
+  .next-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text, white);
+    opacity: 0.7;
+    transition: opacity 0.4s ease;
+    /* Prevent label from shifting layout when it fades */
+    pointer-events: none;
+  }
+
+  .next-label.hidden {
+    opacity: 0;
+  }
+
+  /* ── Back-to-top button (bottom-right) ─────────────────────── */
+  .top-button {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     background: rgba(0, 0, 0, 0.4);
     color: white;
     border: none;
     border-radius: 50%;
     cursor: pointer;
-    transition: all 0.3s ease;
     backdrop-filter: blur(10px);
     z-index: 1000;
-    animation:
-      fadeIn 0.8s ease-out,
-      pulse 4s ease-in-out 0.8s infinite;
+    /* Start invisible; transition handles fade-in/out */
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.4s ease,
+      background 0.3s ease;
   }
 
-  .scroll-button:hover {
-    background: rgba(0, 0, 0, 0.6);
-    animation: none;
+  .top-button.visible {
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .scroll-button:focus-visible {
-    outline: 2px solid var(--text);
+  .top-button:hover {
+    background: rgba(0, 0, 0, 0.65);
+  }
+
+  .top-button:focus-visible {
+    outline: 2px solid white;
     outline-offset: 2px;
   }
 
-  .scroll-icon {
-    transition: transform 0.3s ease;
-  }
-
-  .scroll-button.scroll-up .scroll-icon {
-    transform: rotate(180deg);
-  }
-
+  /* ── Shared animations ──────────────────────────────────────── */
   @keyframes fadeIn {
     from {
       opacity: 0;
@@ -74,63 +170,83 @@
       opacity: 1;
     }
     50% {
-      opacity: 0.75;
+      opacity: 0.6;
     }
   }
 
+  /* ── Mobile ─────────────────────────────────────────────────── */
   @media (max-width: 640px) {
-    .scroll-button {
+    .next-wrapper {
+      bottom: 1.5rem;
+    }
+
+    .top-button {
       bottom: 1.5rem;
       right: 1.5rem;
-      width: 44px;
-      height: 44px;
+      width: 40px;
+      height: 40px;
     }
   }
 </style>
 
 <script>
-  const scrollButton = document.getElementById('scroll-button');
+  const nextWrapper = document.getElementById(
+    'next-wrapper',
+  ) as HTMLElement | null;
+  const nextButton = document.getElementById(
+    'next-button',
+  ) as HTMLButtonElement | null;
+  const topButton = document.getElementById(
+    'top-button',
+  ) as HTMLButtonElement | null;
+  const viewLabel = document.getElementById(
+    'view-work-label',
+  ) as HTMLElement | null;
 
-  function updateScrollButton() {
-    if (!scrollButton) return;
+  // Collect all work sections in DOM order once.
+  const sections = Array.from(document.querySelectorAll<HTMLElement>('.work'));
 
-    const isAtTop = window.scrollY < 100;
-
-    if (isAtTop) {
-      scrollButton.classList.remove('scroll-up');
-      scrollButton.setAttribute('aria-label', 'Scroll down');
-    } else {
-      scrollButton.classList.add('scroll-up');
-      scrollButton.setAttribute('aria-label', 'Scroll to top');
-    }
+  /**
+   * Returns the first work section whose top edge is below the current
+   * viewport midpoint — i.e. the next section the user hasn't fully reached.
+   */
+  function getNextSection(): HTMLElement | undefined {
+    const threshold = window.scrollY + window.innerHeight * 0.5;
+    return sections.find((s) => s.offsetTop > threshold);
   }
 
-  scrollButton?.addEventListener('click', () => {
-    const isAtTop = window.scrollY < 100;
+  function updateButtons(): void {
+    const hero = document.querySelector<HTMLElement>('.hero');
+    const heroBottom = hero ? hero.offsetTop + hero.offsetHeight : 0;
+    // Consider the user "past the hero" when it's mostly scrolled out of view.
+    const pastHero = window.scrollY + window.innerHeight * 0.25 > heroBottom;
 
-    if (isAtTop) {
-      const workSection = document.querySelector('.work');
-      workSection?.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    // Back-to-top: reveal once the hero is scrolled past.
+    topButton?.classList.toggle('visible', pastHero);
+
+    // Next-item button: hide gracefully once there's nothing left to navigate to.
+    const hasNext = !!getNextSection();
+    nextWrapper?.classList.toggle('hidden', !hasNext);
+
+    // "View Work" label: only visible while the user is in the hero.
+    viewLabel?.classList.toggle('hidden', pastHero);
+
+    // Update accessible label to match current context.
+    nextButton?.setAttribute(
+      'aria-label',
+      pastHero ? 'Go to next work item' : 'View Work',
+    );
+  }
+
+  nextButton?.addEventListener('click', () => {
+    getNextSection()?.scrollIntoView({ behavior: 'smooth' });
   });
 
-  window.addEventListener('scroll', updateScrollButton, { passive: true });
-  updateScrollButton();
+  topButton?.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
 
-  function handleHashScroll() {
-    const hash = window.location.hash;
-    if (hash) {
-      const target = document.querySelector(hash);
-      if (target) {
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      }
-    }
-  }
-
-  handleHashScroll();
-  window.addEventListener('hashchange', handleHashScroll);
+  window.addEventListener('scroll', updateButtons, { passive: true });
+  // Run once on load so the initial state is correct without waiting for a scroll.
+  updateButtons();
 </script>
