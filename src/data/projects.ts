@@ -21,7 +21,7 @@ const projects: Project[] = [
       'A lightweight platform for shared accountability and task management within groups.',
     url: 'https://ourvio.com',
     urlLabel: 'Go to site',
-    image: 'ourvio-2.png',
+    image: 'ourvio-3.png',
     imageAlt:
       'Screenshot of the Ourvio application showing group accountability dashboard',
   },
