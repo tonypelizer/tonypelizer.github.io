@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ourvioDashboard from '../../assets/ourvio-dashboard-2.png';
 ---
 
 <BaseLayout
@@ -129,6 +130,15 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           introducing the complexity of full project management systems.
         </p>
       </section>
+
+      <!-- Dashboard Screenshot -->
+      <div class="cs-screenshot">
+        <img
+          src={ourvioDashboard.src}
+          alt="Ourvio dashboard"
+          class="cs-screenshot-img"
+        />
+      </div>
 
       <!-- Product Design -->
       <section class="cs-section">
@@ -436,8 +446,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   /* ─── Hero ────────────────────────────────────────────────────── */
   .cs-hero {
-    max-width: 760px;
+    max-width: 800px;
     margin-bottom: 72px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .cs-overline {
@@ -508,7 +520,24 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   /* ─── Body ────────────────────────────────────────────────────── */
   .cs-body {
-    max-width: 700px;
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ─── Screenshot ──────────────────────────────────────────────── */
+  .cs-screenshot {
+    margin: 0 auto 64px;
+    max-width: 960px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  .cs-screenshot-img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   /* ─── Sections ────────────────────────────────────────────────── */

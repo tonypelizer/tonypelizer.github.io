@@ -1,6 +1,6 @@
 :root {
-  --max: 2000px;
-  --pad: 50px;
+  --max: 1200px;
+  --pad: clamp(24px, 5vw, 72px);
   --text: #0b0b0b;
   --muted: #b9b9b9;
 }
