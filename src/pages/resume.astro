@@ -1,0 +1,1160 @@
+---
+import { Image } from 'astro:assets';
+import photo from '../assets/tonypelizer.png';
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume — Tony Pelizer</title>
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/png" href="/tp.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script is:inline>
+      // Set theme before first paint to prevent FOUC
+      (function () {
+        const saved = localStorage.getItem('resume-theme');
+        const prefersDark = window.matchMedia(
+          '(prefers-color-scheme: dark)',
+        ).matches;
+        const theme = saved || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+
+    <style>
+      /* ── Reset ──────────────────────────────────────────────────── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      /* ── Tokens ─────────────────────────────────────────────────── */
+      :root {
+        --bg: #ffffff;
+        --bg-alt: #f7f7f7;
+        --text: #0d0d0d;
+        --text-muted: #767676;
+        --border: #e2e2e2;
+        --rule: #dcdcdc;
+        --quote-bg: #f4f4f4;
+        --quote-bd: #d4d4d4;
+        --sidebar-w: 300px;
+      }
+
+      [data-theme='dark'] {
+        --bg: #111111;
+        --bg-alt: #191919;
+        --text: #efefef;
+        --text-muted: #888888;
+        --border: #2c2c2c;
+        --rule: #2c2c2c;
+        --quote-bg: #1c1c1c;
+        --quote-bd: #333333;
+      }
+
+      /* ── Base ───────────────────────────────────────────────────── */
+      html,
+      body {
+        height: 100%;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          'Inter',
+          -apple-system,
+          BlinkMacSystemFont,
+          Arial,
+          sans-serif;
+        font-size: 13.5px;
+        line-height: 1.6;
+        transition:
+          background 0.2s,
+          color 0.2s;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      /* ── Theme toggle ───────────────────────────────────────────── */
+      .theme-toggle {
+        position: fixed;
+        top: 22px;
+        right: 24px;
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        width: 52px;
+        height: 28px;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        padding: 3px;
+        background: #2a2a2a;
+        transition: background 0.25s;
+      }
+
+      [data-theme='dark'] .theme-toggle {
+        background: #555555;
+      }
+
+      .toggle-knob {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: #ffffff;
+        flex-shrink: 0;
+        transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      [data-theme='dark'] .toggle-knob {
+        transform: translateX(24px);
+      }
+
+      .toggle-knob svg {
+        width: 12px;
+        height: 12px;
+        color: #aaa;
+        flex-shrink: 0;
+      }
+
+      .icon-moon {
+        display: block;
+      }
+      .icon-sun {
+        display: none;
+      }
+      [data-theme='dark'] .icon-moon {
+        display: none;
+      }
+      [data-theme='dark'] .icon-sun {
+        display: block;
+      }
+
+      /* ── Page layout ────────────────────────────────────────────── */
+      .resume-page {
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* ── Sidebar ────────────────────────────────────────────────── */
+      .sidebar {
+        flex: 0 0 var(--sidebar-w);
+        width: var(--sidebar-w);
+        min-height: 100vh;
+        padding: 48px 36px 60px;
+        border-right: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+        background: var(--bg);
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      .avatar-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+
+      .avatar {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+      }
+
+      /* ── Info block ─────────────────────────────────────────────── */
+      .info-block {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .sidebar-section-title {
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text);
+        margin-bottom: 2px;
+      }
+
+      .info-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .info-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 9px;
+        color: var(--text-muted);
+        font-size: 12.5px;
+        font-weight: 400;
+        line-height: 1.4;
+        word-break: break-all;
+      }
+
+      .info-list li svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+        margin-top: 1px;
+        color: var(--text-muted);
+      }
+
+      /* ── Quote box ──────────────────────────────────────────────── */
+      .quote-box {
+        background: var(--quote-bg);
+        border: 1px solid var(--quote-bd);
+        border-radius: 6px;
+        padding: 14px 16px;
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--text-muted);
+        line-height: 1.65;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      /* ── Main content ───────────────────────────────────────────── */
+      .content {
+        flex: 1;
+        min-width: 0;
+        padding: 48px 60px 80px;
+        background: var(--bg);
+        transition: background 0.2s;
+      }
+
+      /* ── Resume header ──────────────────────────────────────────── */
+      .resume-header {
+        margin-bottom: 36px;
+      }
+
+      .name-block {
+        display: flex;
+        flex-direction: column;
+        line-height: 1;
+        letter-spacing: -0.01em;
+      }
+
+      .name-first {
+        font-size: 38px;
+        font-weight: 400;
+        color: var(--text);
+        letter-spacing: 0.04em;
+      }
+
+      .name-last {
+        font-size: 66px;
+        font-weight: 800;
+        color: var(--text);
+        letter-spacing: -0.02em;
+        margin-top: -4px;
+        line-height: 1;
+      }
+
+      .job-title-line {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 300;
+        color: var(--text-muted);
+        letter-spacing: 0.01em;
+      }
+
+      /* ── Resume sections ────────────────────────────────────────── */
+      .resume-section {
+        margin-bottom: 36px;
+      }
+
+      .section-heading {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--text);
+        margin-bottom: 8px;
+      }
+
+      .section-rule {
+        border: none;
+        border-top: 1px solid var(--rule);
+        margin-bottom: 18px;
+        transition: border-color 0.2s;
+      }
+
+      .section-body {
+        font-size: 13.5px;
+        font-weight: 400;
+        line-height: 1.7;
+        color: var(--text);
+      }
+
+      /* ── Job entries ────────────────────────────────────────────── */
+      .job {
+        margin-bottom: 28px;
+      }
+
+      .job:last-child {
+        margin-bottom: 0;
+      }
+
+      .job-header {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 8px;
+        flex-wrap: wrap;
+      }
+
+      .job-title {
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.4;
+      }
+
+      .job-dates {
+        font-size: 12px;
+        font-weight: 400;
+        color: var(--text-muted);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+
+      .job-bullets {
+        list-style: disc;
+        padding-left: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+      }
+
+      .job-bullets li {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      /* ── Side projects ──────────────────────────────────────────── */
+      .side-projects-label {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-top: 16px;
+        margin-bottom: 10px;
+        letter-spacing: 0.02em;
+      }
+
+      .project {
+        margin-bottom: 16px;
+      }
+
+      .project:last-child {
+        margin-bottom: 0;
+      }
+
+      .project-name {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+      }
+
+      .project-name span {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text);
+      }
+
+      .project-name a {
+        display: flex;
+        align-items: center;
+        color: var(--text-muted);
+        transition: color 0.15s;
+      }
+
+      .project-name a:hover {
+        color: var(--text);
+      }
+
+      .project-name a svg {
+        width: 13px;
+        height: 13px;
+      }
+
+      /* ── Skills grid ────────────────────────────────────────────── */
+      .skills-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .skill-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        font-size: 12.5px;
+        line-height: 1.5;
+      }
+
+      .skill-group-label {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 10.5px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .skill-group-items {
+        font-weight: 400;
+        color: var(--text);
+      }
+
+      /* ── Gate overlay ───────────────────────────────────────────── */
+      #gate {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.4s ease;
+      }
+
+      #gate.fade-out {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .gate-card {
+        width: 100%;
+        max-width: 360px;
+        padding: 48px 40px;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        background: var(--bg-alt);
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        transition:
+          background 0.2s,
+          border-color 0.2s;
+      }
+
+      .gate-logo {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+      }
+
+      .gate-heading {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .gate-title {
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--text);
+      }
+
+      .gate-subtitle {
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--text-muted);
+      }
+
+      .gate-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .gate-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .gate-input {
+        width: 100%;
+        padding: 11px 44px 11px 14px;
+        font-family: inherit;
+        font-size: 14px;
+        font-weight: 400;
+        color: var(--text);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        outline: none;
+        transition:
+          border-color 0.15s,
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .gate-input:focus {
+        border-color: var(--text-muted);
+      }
+
+      .gate-input.error {
+        border-color: #e55353;
+      }
+
+      .gate-reveal {
+        position: absolute;
+        right: 12px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: var(--text-muted);
+        padding: 0;
+        display: flex;
+        align-items: center;
+        transition: color 0.15s;
+      }
+
+      .gate-reveal:hover {
+        color: var(--text);
+      }
+
+      .gate-reveal svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      .gate-submit {
+        width: 100%;
+        padding: 11px 14px;
+        font-family: inherit;
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--bg);
+        background: var(--text);
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition:
+          opacity 0.15s,
+          background 0.2s,
+          color 0.2s;
+      }
+
+      .gate-submit:hover {
+        opacity: 0.8;
+      }
+
+      .gate-error {
+        font-size: 12px;
+        font-weight: 400;
+        color: #e55353;
+        min-height: 16px;
+        margin-top: 6px;
+      }
+
+      /* ── Mobile ─────────────────────────────────────────────────── */
+      @media (max-width: 768px) {
+        .theme-toggle {
+          top: 14px;
+          right: 14px;
+        }
+
+        .resume-page {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          min-height: auto;
+          padding: 32px 24px 28px;
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+        }
+
+        .avatar {
+          width: 120px;
+          height: 120px;
+        }
+
+        .content {
+          padding: 32px 24px 60px;
+        }
+
+        .name-first {
+          font-size: 28px;
+        }
+
+        .name-last {
+          font-size: 48px;
+        }
+
+        .job-header {
+          flex-direction: column;
+          gap: 2px;
+        }
+
+        .gate-card {
+          margin: 0 16px;
+          padding: 36px 24px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ── Gate overlay ── -->
+    <div id="gate">
+      <div class="gate-card">
+        <p class="gate-logo">Tony Pelizer</p>
+        <div class="gate-heading">
+          <h1 class="gate-title">Resume</h1>
+          <p class="gate-subtitle">This page is password protected.</p>
+        </div>
+        <form class="gate-form" id="gateForm" novalidate>
+          <div>
+            <div class="gate-input-wrapper">
+              <input
+                class="gate-input"
+                id="gateInput"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                autofocus
+              />
+              <button
+                type="button"
+                class="gate-reveal"
+                id="gateReveal"
+                aria-label="Show password"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+            <p class="gate-error" id="gateError"></p>
+          </div>
+          <button type="submit" class="gate-submit">Unlock</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Dark/light toggle -->
+    <button
+      class="theme-toggle"
+      id="themeToggle"
+      aria-label="Toggle dark/light mode"
+    >
+      <span class="toggle-knob">
+        <!-- Moon icon (shown in light mode) -->
+        <svg
+          class="icon-moon"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <!-- Sun icon (shown in dark mode) -->
+        <svg
+          class="icon-sun"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <circle cx="12" cy="12" r="5"></circle>
+          <line
+            x1="12"
+            y1="1"
+            x2="12"
+            y2="3"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="12"
+            y1="21"
+            x2="12"
+            y2="23"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="4.22"
+            y1="4.22"
+            x2="5.64"
+            y2="5.64"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="18.36"
+            y1="18.36"
+            x2="19.78"
+            y2="19.78"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="1"
+            y1="12"
+            x2="3"
+            y2="12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="21"
+            y1="12"
+            x2="23"
+            y2="12"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="4.22"
+            y1="19.78"
+            x2="5.64"
+            y2="18.36"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+          <line
+            x1="18.36"
+            y1="5.64"
+            x2="19.78"
+            y2="4.22"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"></line>
+        </svg>
+      </span>
+    </button>
+
+    <div class="resume-page">
+      <!-- ══════════════════ SIDEBAR ══════════════════ -->
+      <aside class="sidebar">
+        <div class="avatar-wrapper">
+          <Image src={photo} alt="Tony Pelizer" class="avatar" />
+        </div>
+
+        <div class="info-block">
+          <p class="sidebar-section-title">Info</p>
+          <ul class="info-list">
+            <li>
+              <!-- Envelope -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  d="M2.003 5.884 10 9.882l7.997-3.998A2 2 0 0 0 16 4H4a2 2 0 0 0-1.997 1.884z"
+                ></path>
+                <path
+                  d="M18 8.118l-8 4-8-4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.118z"
+                ></path>
+              </svg>
+              <span>anthonypelizer@gmail.com</span>
+            </li>
+            <li>
+              <!-- Map pin -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.05 4.05a7 7 0 1 1 9.9 9.9L10 18.9l-4.95-4.95a7 7 0 0 1 0-9.9zM10 11a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"
+                  clip-rule="evenodd"></path>
+              </svg>
+              <span>Vermont</span>
+            </li>
+            <li>
+              <!-- LinkedIn -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                ></path>
+              </svg>
+              <span>linkedin.com/in/</span>
+            </li>
+            <li>
+              <!-- GitHub -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                ></path>
+              </svg>
+              <span>github.com/tonypelizer</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <p class="sidebar-section-title">Skills</p>
+          <div class="skills-grid">
+            <div class="skill-group">
+              <span class="skill-group-label">Languages</span>
+              <span class="skill-group-items"
+                >Python, TypeScript, JavaScript</span
+              >
+            </div>
+            <div class="skill-group">
+              <span class="skill-group-label">Frameworks</span>
+              <span class="skill-group-items"
+                >Django, Django REST Framework, React, Node.js, Express, Vue.js</span
+              >
+            </div>
+            <div class="skill-group">
+              <span class="skill-group-label">Cloud &amp; DevOps</span>
+              <span class="skill-group-items"
+                >Azure, AWS, Docker, CI/CD, Infrastructure Automation</span
+              >
+            </div>
+            <div class="skill-group">
+              <span class="skill-group-label">Databases</span>
+              <span class="skill-group-items"
+                >PostgreSQL, MongoDB, Microsoft SQL Server</span
+              >
+            </div>
+            <div class="skill-group">
+              <span class="skill-group-label">Tools</span>
+              <span class="skill-group-items">Git, Jira, Figma</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ══════════════════ MAIN CONTENT ══════════════════ -->
+      <main class="content">
+        <!-- Header -->
+        <header class="resume-header">
+          <div class="name-block">
+            <span class="name-first">TONY</span>
+            <span class="name-last">PELIZER</span>
+          </div>
+          <p class="job-title-line">senior software engineer</p>
+        </header>
+
+        <!-- ── PROFILE ── -->
+        <section class="resume-section">
+          <h2 class="section-heading">Profile</h2>
+          <hr class="section-rule" />
+          <p class="section-body">
+            Full-stack software engineer specializing in Python/Django and React
+            with deep experience building internal platforms, automation
+            pipelines, and data-driven dashboards. Proven track record designing
+            scalable systems, improving operational workflows, and delivering
+            high-impact tools used by cross-functional teams. Known for
+            translating complex technical problems into practical solutions and
+            mentoring engineers in fast-moving environments.
+          </p>
+        </section>
+
+        <!-- ── WORK EXPERIENCE ── -->
+        <section class="resume-section">
+          <h2 class="section-heading">Work Experience</h2>
+          <hr class="section-rule" />
+
+          <!-- DairyOne -->
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">
+                Software Engineer – <a
+                  href="https://dairyone.com/"
+                  target="_blank"
+                  rel="noopener noreferrer">DairyOne</a
+                >, Ithaca, NY (Remote)
+              </h3>
+              <span class="job-dates">Nov 2023 – Present</span>
+            </div>
+            <ul class="job-bullets">
+              <li>
+                Automated repetitive workflows by creating and maintaining <b
+                  >25+</b
+                >
+                Python scripts.
+              </li>
+              <li>
+                Built and deployed a React-based DHI operations dashboard used
+                by <b>40+</b> internal staff, centralizing lab data, batch processing
+                status, and analytics to improve operational visibility.
+              </li>
+              <li>
+                Designed and implemented a real-time notification system for
+                Django applications using asynchronous workers and event-driven
+                triggers, improving operational response times to under <b>10</b
+                >
+                minutes.
+              </li>
+              <li>
+                Led the redesign of a transportation network application,
+                enhancing functionality and overall user experience.
+              </li>
+              <li>
+                Optimized Azure infrastructure and deployment pipelines,
+                reducing cloud costs while maintaining <b>99.9%</b> service uptime
+                across production workloads.
+              </li>
+              <li>
+                Designed backend APIs and database schemas supporting
+                high-volume lab data processing workflows.
+              </li>
+            </ul>
+          </div>
+
+          <!-- MacguyverTech -->
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">
+                Software Engineer – <a
+                  href="https://macguyvertech.com/"
+                  target="_blank"
+                  rel="noopener noreferrer">MacguyverTech</a
+                >, Glenolden, PA (Remote)
+              </h3>
+              <span class="job-dates">Jun 2022 – Feb 2024</span>
+            </div>
+            <ul class="job-bullets">
+              <li>
+                Coordinated with <b>10</b> developers across <b>5</b> projects, consistently
+                delivering features on time and within budget.
+              </li>
+              <li>
+                Designed and implemented a robust attribute-based access control
+                system for a maritime security application, dedicating <b
+                  >500+</b
+                >
+                hours to ensure compliance with security requirements and industry
+                standards.
+              </li>
+              <li>
+                Delivered production features and bug fixes across multiple
+                Django applications, improving system stability and reducing
+                backlog of critical issues.
+              </li>
+              <li>
+                Mentored <b>2</b> junior developers, accelerating their technical
+                growth and boosting team productivity.
+              </li>
+              <li>
+                Translated complex technical concepts into clear, actionable
+                language for non-technical stakeholders within cross-functional
+                Scrum teams.
+              </li>
+            </ul>
+          </div>
+
+          <!-- Paygevity -->
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">
+                Software Engineer – <a
+                  href="https://paygevity.com/"
+                  target="_blank"
+                  rel="noopener noreferrer">Paygevity</a
+                >, New York, NY (Remote)
+              </h3>
+              <span class="job-dates">Jun 2023 – Sep 2023</span>
+            </div>
+            <ul class="job-bullets">
+              <li>
+                Collaborated with a <b>3</b>-member startup team to deliver key
+                features using Django REST Framework, Vue.js, and MongoDB,
+                ensuring on-time delivery and seamless full-stack integration.
+              </li>
+              <li>
+                Improved API response times, reducing latency from <b>100ms</b> to
+                <b>20ms</b>
+                and enhancing SSR performance.
+              </li>
+              <li>
+                Engineered an advanced administrator dashboard with aggregation
+                charts, resulting in a <b>25%</b> reduction in data analysis time
+                and empowering leadership with real-time insights.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ── PROJECTS ── -->
+        <section class="resume-section">
+          <h2 class="section-heading">Projects</h2>
+          <hr class="section-rule" />
+
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">Ourvio – Collaborative Task Platform</h3>
+            </div>
+            <ul class="job-bullets">
+              <li>
+                Built full-stack application using Django, React, and
+                PostgreSQL.
+              </li>
+              <li>
+                Implemented real-time task updates, group workflows, and
+                role-based permissions.
+              </li>
+              <li>
+                Designed scalable REST API and responsive UI using Material UI.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- ── EDUCATION ── -->
+        <section class="resume-section">
+          <h2 class="section-heading">Education &amp; Honors</h2>
+          <hr class="section-rule" />
+
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">
+                BSc, Computer Science (12 credits completed)
+              </h3>
+              <span class="job-dates">Sep 2011 – May 2012</span>
+            </div>
+            <p class="section-body" style="margin-top: 4px;">
+              University of New Hampshire, Durham, NH
+            </p>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">ASc, Computer Science</h3>
+              <span class="job-dates">Sep 2009 – May 2011</span>
+            </div>
+            <p class="section-body" style="margin-top: 4px;">
+              River Valley Community College, Claremont, NH
+            </p>
+          </div>
+
+          <div class="job">
+            <div class="job-header">
+              <h3 class="job-title">
+                Phi Theta Kappa – National Honors Society
+              </h3>
+              <span class="job-dates">May 2010</span>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      // ── Gate ────────────────────────────────────────────────────────
+      const HASH =
+        'ab2bacde953864ff7a439173a81d0ef4b2591163a802b6e2e841099961397d7f';
+      const SESSION_KEY = 'resume-authed';
+
+      async function sha256(str: string): Promise<string> {
+        const buf = await crypto.subtle.digest(
+          'SHA-256',
+          new TextEncoder().encode(str),
+        );
+        return Array.from(new Uint8Array(buf))
+          .map((b) => b.toString(16).padStart(2, '0'))
+          .join('');
+      }
+
+      const gate = document.getElementById('gate') as HTMLElement;
+
+      function unlock() {
+        gate.classList.add('fade-out');
+        gate.addEventListener('transitionend', () => gate.remove(), {
+          once: true,
+        });
+      }
+
+      if (sessionStorage.getItem(SESSION_KEY) === '1') {
+        unlock();
+      }
+
+      const form = document.getElementById('gateForm') as HTMLFormElement;
+      const input = document.getElementById('gateInput') as HTMLInputElement;
+      const errorEl = document.getElementById('gateError') as HTMLElement;
+      const revealBtn = document.getElementById(
+        'gateReveal',
+      ) as HTMLButtonElement;
+
+      revealBtn?.addEventListener('click', () => {
+        const isPassword = input.type === 'password';
+        input.type = isPassword ? 'text' : 'password';
+      });
+
+      form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const hash = await sha256(input.value);
+        if (hash === HASH) {
+          sessionStorage.setItem(SESSION_KEY, '1');
+          input.classList.remove('error');
+          errorEl.textContent = '';
+          unlock();
+        } else {
+          input.classList.add('error');
+          errorEl.textContent = 'Incorrect password.';
+          input.select();
+          input.focus();
+        }
+      });
+
+      // ── Theme toggle ─────────────────────────────────────────────────
+      const toggle = document.getElementById('themeToggle');
+      toggle?.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('resume-theme', next);
+      });
+    </script>
+  </body>
+</html>
