@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
-import photo from '../assets/tonypelizer.png';
+import photoDark from '../assets/tonypelizer.png';
+import photoLight from '../assets/tonypelizerlight.png';
 ---
 
 <!doctype html>
@@ -10,7 +11,7 @@ import photo from '../assets/tonypelizer.png';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Resume — Tony Pelizer</title>
     <meta name="robots" content="noindex, nofollow" />
-    <link rel="icon" type="image/png" href="/tp.png" />
+    <link rel="icon" type="image/png" href="/td.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -178,6 +179,16 @@ import photo from '../assets/tonypelizer.png';
         border-radius: 50%;
         object-fit: cover;
         object-position: center;
+        display: block;
+      }
+
+      .avatar-dark {
+        display: none;
+      }
+      [data-theme='dark'] .avatar-light {
+        display: none;
+      }
+      [data-theme='dark'] .avatar-dark {
         display: block;
       }
 
@@ -774,7 +785,16 @@ import photo from '../assets/tonypelizer.png';
       <!-- ══════════════════ SIDEBAR ══════════════════ -->
       <aside class="sidebar">
         <div class="avatar-wrapper">
-          <Image src={photo} alt="Tony Pelizer" class="avatar" />
+          <Image
+            src={photoLight}
+            alt="Tony Pelizer"
+            class="avatar avatar-light"
+          />
+          <Image
+            src={photoDark}
+            alt="Tony Pelizer"
+            class="avatar avatar-dark"
+          />
         </div>
 
         <div class="info-block">
@@ -794,7 +814,7 @@ import photo from '../assets/tonypelizer.png';
                   d="M18 8.118l-8 4-8-4V14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.118z"
                 ></path>
               </svg>
-              <span>anthonypelizer@gmail.com</span>
+              <span>tonypelizer@gmail.com</span>
             </li>
             <li>
               <!-- Map pin -->

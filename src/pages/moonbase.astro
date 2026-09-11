@@ -1,0 +1,110 @@
+---
+// Moonbase — interactive portfolio (Three.js rover/lunar scene)
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>Tony Pelizer - Interactive Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div id="loading-screen">
+      <div class="loading-inner">
+        <div class="loading-logo">◈ LUNAR COMMAND</div>
+        <div class="loading-status" id="loading-status">
+          Establishing connection...
+        </div>
+        <div class="loading-bar">
+          <div class="loading-fill" id="loading-fill"></div>
+        </div>
+        <div class="loading-hint" id="loading-hint">
+          WASD / Arrow Keys to drive
+        </div>
+        <div class="loading-hint">Explore craters to view projects</div>
+      </div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <div id="hud">
+      <div id="hud-speed">SPD <span id="hud-speed-val">0.0</span> m/s</div>
+      <div id="hud-coords">
+        POS <span id="hud-x">0</span>, <span id="hud-z">0</span>
+      </div>
+      <div id="hud-controls">W/S · DRIVE &nbsp;&nbsp; A/D · STEER</div>
+      <button id="mute-btn" title="Toggle audio (M)">♪ AUDIO</button>
+    </div>
+
+    <div id="joystick-zone" aria-hidden="true">
+      <div id="joystick-ring"></div>
+      <div id="joystick-knob"></div>
+    </div>
+
+    <a id="classic-link" href="/" title="View traditional portfolio">
+      ↗ prefer earth?
+    </a>
+    <button id="radar-btn">◈ VIEW PROJECTS</button>
+
+    <div id="commander-msg" class="hidden"></div>
+    <div id="abduction-flash"></div>
+
+    <div id="proximity-label" class="hidden"></div>
+
+    <div id="project-panel" class="panel hidden">
+      <div class="panel-header">
+        <span class="panel-tag">◈ PROJECT LOG</span>
+        <button class="panel-close" id="panel-close">✕ CLOSE</button>
+      </div>
+      <h2 id="panel-title">Project Name</h2>
+      <p id="panel-desc">Description goes here.</p>
+      <div class="panel-tech" id="panel-tech"></div>
+      <div class="panel-actions">
+        <a id="panel-site" href="#" target="_blank" class="btn-primary"
+          >▶ VIEW SITE</a
+        >
+        <a id="panel-code" href="#" target="_blank" class="btn-secondary"
+          >⌥ VIEW CODE</a
+        >
+      </div>
+    </div>
+
+    <div id="contact-overlay" class="panel hidden">
+      <div class="panel-header">
+        <span class="panel-tag">◈ COMMS UPLINK</span>
+        <button class="panel-close" id="contact-close">✕ CLOSE</button>
+      </div>
+      <h2>Transmit Message</h2>
+      <form id="contact-form">
+        <label>CALLSIGN (Name)</label>
+        <input type="text" name="name" placeholder="Your name" required />
+        <label>FREQUENCY (Email)</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+        />
+        <label>TRANSMISSION (Message)</label>
+        <textarea
+          name="message"
+          placeholder="What's your mission?"
+          rows="4"
+          required></textarea>
+        <button type="submit" class="btn-primary">⬆ TRANSMIT</button>
+      </form>
+    </div>
+
+    <script>
+      import '../moonbase/main.js';
+    </script>
+    <style is:global>
+      @import '../moonbase/styles.css';
+    </style>
+  </body>
+</html>

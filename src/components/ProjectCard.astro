@@ -22,6 +22,24 @@ if (project.image) {
     imageSrc = mod.default.src;
   }
 }
+
+let mobileImageSrc: string | undefined;
+if (project.mobileImage) {
+  const key = `../assets/${project.mobileImage}`;
+  if (images[key]) {
+    const mod = await images[key]();
+    mobileImageSrc = mod.default.src;
+  }
+}
+
+let overlayImageSrc: string | undefined;
+if (project.overlayImage) {
+  const key = `../assets/${project.overlayImage}`;
+  if (images[key]) {
+    const mod = await images[key]();
+    overlayImageSrc = mod.default.src;
+  }
+}
 ---
 
 <section id={project.slug} class="work">
@@ -31,15 +49,23 @@ if (project.image) {
       <p class="role">{project.role}, {project.period}</p>
       <p class="work-desc">{project.description}</p>
       <div class="button-group">
-        <a
-          href={project.url}
-          class="get-app-button"
-          {...project.url.startsWith('http')
-            ? { target: '_blank', rel: 'noopener noreferrer' }
-            : {}}
-        >
-          {project.urlLabel}
-        </a>
+        {
+          project.comingSoon ? (
+            <span class="get-app-button get-app-button--disabled">
+              Coming soon
+            </span>
+          ) : (
+            <a
+              href={project.url}
+              class="get-app-button"
+              {...(project.url.startsWith('http')
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : {})}
+            >
+              {project.urlLabel}
+            </a>
+          )
+        }
         {
           project.caseStudyUrl && (
             <a href={project.caseStudyUrl} class="case-study-button">
@@ -52,11 +78,28 @@ if (project.image) {
     <div class="work-image">
       {
         imageSrc && (
-          <img
-            src={imageSrc}
-            alt={project.imageAlt ?? project.title}
-            loading="lazy"
-          />
+          <div class="work-image-wrap">
+            <picture>
+              {mobileImageSrc && (
+                <source media="(max-width: 768px)" srcset={mobileImageSrc} />
+              )}
+              <img
+                src={imageSrc}
+                alt={project.imageAlt ?? project.title}
+                loading="lazy"
+                class="work-image-main"
+              />
+            </picture>
+            {overlayImageSrc && (
+              <img
+                src={overlayImageSrc}
+                alt=""
+                aria-hidden="true"
+                loading="lazy"
+                class={`work-image-overlay${project.mobileOverlayOnly ? ' work-image-overlay--mobile-only' : ''}`}
+              />
+            )}
+          </div>
         )
       }
     </div>
@@ -86,17 +129,43 @@ if (project.image) {
 
   .work-image {
     height: 90vh;
-    border-radius: 8px;
-    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: flex-end;
   }
 
-  .work-image img {
+  .work-image-wrap {
+    position: relative;
+    display: inline-flex;
+    border-radius: 12px;
+    overflow: visible;
+  }
+
+  .work-image-main {
+    display: block;
     max-width: 100%;
     max-height: 90vh;
     object-fit: contain;
+  }
+
+  .work-image-overlay {
+    position: absolute;
+    bottom: -16px;
+    right: 8%;
+    width: 32%;
+    border-radius: 10px;
+    pointer-events: none;
+  }
+
+  .work-image-overlay--mobile-only {
+    display: none;
+  }
+
+  #clawbin .work-image-main {
+    max-height: 80vh;
+    transform: translateX(-40px);
+    filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.08))
+      drop-shadow(0 2px 8px rgba(0, 0, 0, 0.05));
   }
 
   .work h2 {
@@ -147,6 +216,18 @@ if (project.image) {
     outline-offset: 2px;
   }
 
+  .get-app-button--disabled {
+    background: #d0d0d0;
+    color: #888;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .get-app-button--disabled:hover {
+    background: #d0d0d0;
+    transform: none;
+  }
+
   .button-group {
     display: flex;
     flex-wrap: wrap;
@@ -185,21 +266,54 @@ if (project.image) {
   @media (max-width: 768px) {
     .work {
       min-height: 100vh;
-      padding: 0;
-      justify-content: center;
+      padding: 20px 0 40px;
+      justify-content: flex-start;
     }
 
     .work-content {
       grid-template-columns: 1fr;
-    }
-
-    .work-text {
-      align-items: center;
-      text-align: center;
+      gap: 48px;
     }
 
     .work-image {
-      display: none;
+      order: 1;
+      height: auto;
+      justify-content: center;
+      padding: 0 0 24px 0;
+    }
+
+    .work-image-wrap {
+      width: 100%;
+    }
+
+    .work-image-main {
+      max-height: 40vh;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.18),
+        0 4px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    .work-image-overlay {
+      width: 28%;
+      bottom: -20px;
+      right: 20%;
+    }
+
+    .work-image-overlay--mobile-only {
+      display: block;
+    }
+
+    #clawbin .work-image-main {
+      transform: none;
+    }
+
+    .work-text {
+      order: 2;
+      align-items: center;
+      text-align: center;
     }
   }
 </style>

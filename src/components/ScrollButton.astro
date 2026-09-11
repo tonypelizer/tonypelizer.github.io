@@ -48,6 +48,26 @@
   </svg>
 </button>
 
+<button
+  id="next-work-button"
+  class="next-work-button"
+  aria-label="Go to next work item"
+>
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <path d="M6 9l6 6 6-6"></path>
+  </svg>
+</button>
+
 <style>
   /* ── Next-item wrapper (bottom-center) ────────────────────── */
   .next-wrapper {
@@ -154,6 +174,44 @@
     outline-offset: 2px;
   }
 
+  /* ── Next-work button (bottom-left) ─────────────────────────── */
+  .next-work-button {
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity 0.4s ease,
+      background 0.3s ease;
+  }
+
+  .next-work-button.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .next-work-button:hover {
+    background: rgba(0, 0, 0, 0.65);
+  }
+
+  .next-work-button:focus-visible {
+    outline: 2px solid white;
+    outline-offset: 2px;
+  }
+
   /* ── Shared animations ──────────────────────────────────────── */
   @keyframes fadeIn {
     from {
@@ -186,6 +244,13 @@
       width: 40px;
       height: 40px;
     }
+
+    .next-work-button {
+      bottom: 1.5rem;
+      left: 1.5rem;
+      width: 40px;
+      height: 40px;
+    }
   }
 </style>
 
@@ -195,6 +260,9 @@
   ) as HTMLElement | null;
   const nextButton = document.getElementById(
     'next-button',
+  ) as HTMLButtonElement | null;
+  const nextWorkButton = document.getElementById(
+    'next-work-button',
   ) as HTMLButtonElement | null;
   const topButton = document.getElementById(
     'top-button',
@@ -226,7 +294,8 @@
 
     // Next-item button: hide gracefully once there's nothing left to navigate to.
     const hasNext = !!getNextSection();
-    nextWrapper?.classList.toggle('hidden', !hasNext);
+    nextWrapper?.classList.toggle('hidden', pastHero || !hasNext);
+    nextWorkButton?.classList.toggle('visible', pastHero && hasNext);
 
     // "View Work" label: only visible while the user is in the hero.
     viewLabel?.classList.toggle('hidden', pastHero);
@@ -238,15 +307,18 @@
     );
   }
 
-  nextButton?.addEventListener('click', () => {
+  function scrollToNext(): void {
     const next = getNextSection();
     if (next) {
       window.scrollTo({
-        top: next.getBoundingClientRect().top + window.scrollY,
+        top: next.getBoundingClientRect().top + window.scrollY - 96,
         behavior: 'smooth',
       });
     }
-  });
+  }
+
+  nextButton?.addEventListener('click', scrollToNext);
+  nextWorkButton?.addEventListener('click', scrollToNext);
 
   topButton?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

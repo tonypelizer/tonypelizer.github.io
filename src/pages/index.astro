@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import ScrollButton from '../components/ScrollButton.astro';
+import WelcomeModal from '../components/WelcomeModal.astro';
 import projects from '../data/projects';
 ---
 
@@ -9,8 +10,10 @@ import projects from '../data/projects';
   title="Tony Pelizer — Software Engineer"
   description="Portfolio of Tony Pelizer — software engineer building reliable tools for everyday use."
 >
+  <WelcomeModal />
+
   <section class="hero">
-    <h1>I design and build software for everyday use.</h1>
+    <h1>I turn complex ideas into usable software.</h1>
     <p>
       Currently working at <a
         href="https://dairyone.com"

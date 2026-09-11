@@ -1,0 +1,181 @@
+<!--
+  First-visit popup pointing to the interactive lunar-base portfolio.
+  Shown once per browser session (sessionStorage) so it doesn't nag
+  on every navigation back to "/".
+-->
+<div
+  id="welcome-modal"
+  class="welcome-backdrop hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="welcome-title"
+>
+  <div class="welcome-card">
+    <button id="welcome-close" class="welcome-close" aria-label="Close"
+      >✕</button
+    >
+    <h2 id="welcome-title">Welcome to my portfolio 👋</h2>
+    <p>
+      This is the quick-read version. If you're up for a little fun, I also
+      built a fully interactive version — drive a rover around the moon to
+      explore my projects.
+    </p>
+    <div class="welcome-actions">
+      <a href="/moonbase" class="welcome-primary">🚀 Take me to the moon</a>
+      <button id="welcome-dismiss" class="welcome-secondary"
+        >Continue here</button
+      >
+    </div>
+  </div>
+</div>
+
+<style>
+  .welcome-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .welcome-backdrop.hidden {
+    display: none;
+  }
+
+  .welcome-card {
+    position: relative;
+    max-width: 440px;
+    width: 100%;
+    padding: 36px 32px;
+    background: #fff;
+    color: var(--text);
+    border-radius: 14px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.35s ease-out;
+  }
+
+  .welcome-card h2 {
+    margin: 0 0 12px;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  .welcome-card p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+
+  .welcome-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+
+  .welcome-primary {
+    padding: 12px 20px;
+    background: var(--text);
+    color: #fff;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+
+  .welcome-primary:hover {
+    background: #333;
+    text-decoration: none;
+  }
+
+  .welcome-secondary {
+    padding: 12px 20px;
+    background: transparent;
+    color: var(--text);
+    border: 1.5px solid var(--text);
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .welcome-secondary:hover {
+    background: var(--text);
+    color: #fff;
+  }
+
+  .welcome-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .welcome-close:hover {
+    color: var(--text);
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = 'welcome-modal-seen';
+  const modal = document.getElementById('welcome-modal');
+  const closeBtn = document.getElementById('welcome-close');
+  const dismissBtn = document.getElementById('welcome-dismiss');
+
+  function close(): void {
+    modal?.classList.add('hidden');
+  }
+
+  if (modal && !sessionStorage.getItem(STORAGE_KEY)) {
+    modal.classList.remove('hidden');
+    sessionStorage.setItem(STORAGE_KEY, '1');
+  }
+
+  closeBtn?.addEventListener('click', close);
+  dismissBtn?.addEventListener('click', close);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+</script>
